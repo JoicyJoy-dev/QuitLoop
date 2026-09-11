@@ -1,0 +1,56 @@
+export const roadmapCalibrationMock = {
+  step: 3,
+  stepCount: 4,
+  title: 'Roadmap Calibration',
+  question: 'When is the urge strongest?',
+  intro:
+    'Identifying your sensory and contextual triggers rewires automatic loops. Select all that resonate.',
+  baseline: {
+    title: 'Current Baseline',
+    standardLabel: 'UK Standard',
+    helper: 'Used to personalise your gentle taper steps.',
+    defaultPuffsPerDay: 250,
+    puffStep: 10,
+    minPuffs: 50,
+    maxPuffs: 800,
+    puffsPerPod: 167,
+    nicotineMgMl: 20,
+    pencePerPuff: 9.8,
+  },
+  paceHint: 'Recommended for high salt',
+  popularLabel: 'Popular',
+  plans: [
+    {
+      id: 'gentle',
+      title: 'Gentle Neuro Taper',
+      body: 'Reduce by 15% each week. Smoothest dopamine rebalancing with minimal physiological disruption.',
+      recommended: true,
+    },
+    {
+      id: 'shift14',
+      title: 'Structured 14-Day Shift',
+      body: 'Accelerated behavioural tapering designed for individuals aiming for quick, decisive cessation.',
+      recommended: false,
+    },
+    {
+      id: 'social',
+      title: 'Social Vape Interception',
+      body: 'Targets weekend, pub, and peer-triggered usage while reinforcing friction points.',
+      recommended: false,
+    },
+  ],
+  roadmap: {
+    authorityLabel: 'Your NHS-informed roadmap',
+    body: 'Projected vape-free milestone in 6 weeks. Craving intensity is predicted to drop by 40% by day 10.',
+    chips: ['Zero shaming', 'Micro-habits included'],
+  },
+  footer: 'Science-backed behavioural tapering • 100% judgment free',
+  triggers: [
+    { id: 'coffee', label: 'Morning coffee' },
+    { id: 'work', label: 'Work stress & deadlines' },
+    { id: 'social', label: 'Social drinks & pub trips' },
+    { id: 'commute', label: 'Driving or commuting' },
+    { id: 'meals', label: 'Post-meal downtime' },
+    { id: 'night', label: 'Late-night gaming & screen time' },
+  ],
+};

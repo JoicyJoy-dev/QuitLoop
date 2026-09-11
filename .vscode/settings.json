@@ -1,0 +1,7 @@
+{
+  "dotnet.defaultSolution": "apps/api/QuitLoop.sln",
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  }
+}

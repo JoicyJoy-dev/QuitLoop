@@ -1,0 +1,45 @@
+name: quitloop
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: quitloop-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-quitloop}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quitloop}
+      POSTGRES_DB: ${POSTGRES_DB:-quitloop}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - quitloop-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-quitloop} -d ${POSTGRES_DB:-quitloop}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    container_name: quitloop-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__Database: ${DATABASE_CONNECTION_STRING:-Host=postgres;Port=5432;Database=quitloop;Username=quitloop;Password=quitloop}
+      Regional__DefaultCountryCode: ${REGIONAL_DEFAULT_COUNTRY_CODE:-GB}
+      Regional__DefaultCurrencyCode: ${REGIONAL_DEFAULT_CURRENCY_CODE:-GBP}
+      Regional__DefaultLanguageCode: ${REGIONAL_DEFAULT_LANGUAGE_CODE:-en-GB}
+      Regional__DefaultTimeZone: ${REGIONAL_DEFAULT_TIME_ZONE:-Europe/London}
+      Regional__DefaultUnitSystem: ${REGIONAL_DEFAULT_UNIT_SYSTEM:-metric}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  quitloop-postgres-data:

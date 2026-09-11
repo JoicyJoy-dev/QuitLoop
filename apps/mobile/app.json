@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "QuitLoop",
+    "slug": "quitloop",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/brand/quitloop-emblem.png",
+    "splash": {
+      "image": "./assets/brand/quitloop-emblem.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#07111F"
+    },
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.quitloop.app"
+    },
+    "android": {
+      "package": "com.quitloop.app",
+      "predictiveBackGestureEnabled": false,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/quitloop-emblem.png",
+        "backgroundColor": "#07111F"
+      }
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

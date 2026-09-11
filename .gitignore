@@ -1,0 +1,64 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+
+# .NET
+bin/
+obj/
+artifacts/
+project.lock.json
+*.nuget.props
+*.nuget.targets
+*.nupkg
+*.snupk
+TestResults/
+*.coverage
+*.coveragexml
+
+# Node / Expo / React Native
+node_modules/
+.expo/
+.expo-shared/
+dist/
+.tmp-export/
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+npm-debug.*
+yarn-error.*
+metro-health-check*
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+appsettings.*.local.json
+*.pfx
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Coverage / tooling
+coverage/
+.turbo/
+.cache/
