@@ -10,7 +10,7 @@ import { IconClock, IconPlus, IconTrendingDown, IconWarning } from '../component
 import { dashboardLocale } from '../data/dashboardMock';
 import { TrackingPeriod, trackingAnalyticsMock } from '../data/trackingAnalyticsMock';
 import { formatMoney } from '../format';
-import { colors, radii, space } from '../theme';
+import { colors, fonts, radii, space } from '../theme';
 
 type TrackingAnalyticsScreenProps = {
   onLogCraving?: () => void;
@@ -187,7 +187,7 @@ export function TrackingAnalyticsScreen({ onLogCraving }: TrackingAnalyticsScree
         }}
         style={styles.primaryButton}
       >
-        <IconPlus size={16} color={colors.bg} />
+        <IconPlus size={16} color={colors.onPrimaryDark} />
         <Text style={styles.primaryText}>Quick Log Craving or Micro-puff</Text>
       </Pressable>
       <View style={styles.syncRow}>
@@ -259,10 +259,10 @@ const styles = StyleSheet.create({
   },
   headline: {
     color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
-    letterSpacing: -0.7,
-    lineHeight: 34,
+    fontFamily: fonts.headline,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: -0.45,
   },
   body: {
     color: colors.textSecondary,
@@ -340,10 +340,11 @@ const styles = StyleSheet.create({
   },
   heroValue: {
     color: colors.text,
+    fontFamily: fonts.display,
     fontSize: 36,
-    fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: -0.72,
     marginTop: 8,
+    fontVariant: ['tabular-nums'],
   },
   heroUnit: {
     color: colors.textSecondary,
@@ -489,9 +490,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   primaryText: {
-    color: colors.bg,
-    fontSize: 15,
-    fontWeight: '700',
+    color: colors.onPrimaryDark,
+    fontFamily: fonts.label,
+    fontSize: 14,
   },
   syncRow: {
     flexDirection: 'row',

@@ -5,13 +5,13 @@ export const tabMeta: Record<
   { label: string; title: string; body: string }
 > = {
   home: {
-    label: 'Home',
-    title: 'Dashboard',
+    label: 'Journey',
+    title: 'Journey',
     body: '',
   },
   track: {
-    label: 'Track',
-    title: 'Track',
+    label: 'Toolkit',
+    title: 'Toolkit',
     body: 'Usage logging and daily totals will land here.',
   },
   health: {
@@ -20,8 +20,8 @@ export const tabMeta: Record<
     body: 'Health insights will land here.',
   },
   profile: {
-    label: 'Profile',
-    title: 'Profile',
-    body: 'Account and regional settings will land here.',
+    label: 'Community',
+    title: 'Community',
+    body: 'Shared milestones and peer support will land here.',
   },
 };

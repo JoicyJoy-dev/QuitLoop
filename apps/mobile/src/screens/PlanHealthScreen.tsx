@@ -17,7 +17,7 @@ import {
   IconSliders,
 } from '../components/icons';
 import { planHealthMock } from '../data/planHealthMock';
-import { colors, radii, space } from '../theme';
+import { colors, fonts, radii, space } from '../theme';
 
 export function PlanHealthScreen() {
   const insets = useSafeAreaInsets();
@@ -197,7 +197,7 @@ export function PlanHealthScreen() {
       </Card>
 
       <Pressable accessibilityRole="button" style={styles.primaryButton}>
-        <IconPulse size={16} color={colors.bg} />
+        <IconPulse size={16} color={colors.onPrimaryDark} />
         <Text style={styles.primaryText}>Schedule Clinical Check-in</Text>
       </Pressable>
       <Pressable accessibilityRole="button" style={styles.ghostButton}>
@@ -287,10 +287,10 @@ const styles = StyleSheet.create({
   },
   headline: {
     color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
-    letterSpacing: -0.7,
-    lineHeight: 34,
+    fontFamily: fonts.headline,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: -0.45,
     flex: 1,
   },
   paceBadge: {
@@ -329,10 +329,11 @@ const styles = StyleSheet.create({
   },
   targetValue: {
     color: colors.text,
+    fontFamily: fonts.display,
     fontSize: 34,
-    fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: -0.68,
     marginTop: 8,
+    fontVariant: ['tabular-nums'],
   },
   targetCap: {
     color: colors.textMuted,
@@ -621,9 +622,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   primaryText: {
-    color: colors.bg,
-    fontSize: 15,
-    fontWeight: '700',
+    color: colors.onPrimaryDark,
+    fontFamily: fonts.label,
+    fontSize: 14,
   },
   ghostButton: {
     flexDirection: 'row',

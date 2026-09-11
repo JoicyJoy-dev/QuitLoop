@@ -11,7 +11,7 @@ type IconBubbleProps = {
 
 export function IconBubble({
   children,
-  backgroundColor = colors.surfaceMuted,
+  backgroundColor = colors.mintDim,
   size = 36,
 }: IconBubbleProps) {
   return (

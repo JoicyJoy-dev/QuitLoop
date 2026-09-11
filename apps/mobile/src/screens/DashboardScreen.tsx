@@ -27,7 +27,8 @@ import { ProgressRing } from '../components/ProgressRing';
 import { Sparkline } from '../components/Sparkline';
 import { dashboardLocale, dashboardMock } from '../data/dashboardMock';
 import { formatMoney } from '../format';
-import { colors, radii, space } from '../theme';
+import { AmbientGlow } from '../components/AmbientGlow';
+import { colors, fonts, radii, space } from '../theme';
 
 type DashboardScreenProps = {
   onStartReset: () => void;
@@ -67,10 +68,11 @@ export function DashboardScreen({ onStartReset }: DashboardScreenProps) {
       style={styles.screen}
       contentContainerStyle={[
         styles.content,
-        { paddingTop: insets.top + 8, paddingBottom: 128 },
+        { paddingTop: insets.top + 8, paddingBottom: 140 },
       ]}
       showsVerticalScrollIndicator={false}
     >
+      <AmbientGlow />
       <View style={styles.topRow}>
         <View style={styles.brand}>
           <BrandMark size={32} />
@@ -145,7 +147,7 @@ export function DashboardScreen({ onStartReset }: DashboardScreenProps) {
             onPress={logPuff}
             style={styles.primaryPill}
           >
-            <IconPlus size={16} color={colors.bg} />
+            <IconPlus size={16} color={colors.onPrimaryDark} />
             <Text style={styles.primaryPillText}>Quick log +1 puff</Text>
           </Pressable>
           <Pressable accessibilityRole="button" accessibilityLabel="Usage chart" style={styles.iconButton}>
@@ -294,8 +296,9 @@ const styles = StyleSheet.create({
   },
   brandTitle: {
     color: colors.text,
+    fontFamily: fonts.label,
     fontSize: 18,
-    fontWeight: '700',
+    lineHeight: 26,
   },
   cleanBadge: {
     flexDirection: 'row',
@@ -314,9 +317,9 @@ const styles = StyleSheet.create({
   },
   cleanBadgeText: {
     color: colors.green,
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.6,
+    fontFamily: fonts.label,
+    fontSize: 11,
+    letterSpacing: 0.44,
   },
   modeRow: {
     flexDirection: 'row',
@@ -331,9 +334,9 @@ const styles = StyleSheet.create({
   },
   modeLabel: {
     color: colors.textMuted,
+    fontFamily: fonts.label,
     fontSize: 11,
-    letterSpacing: 1.4,
-    fontWeight: '600',
+    letterSpacing: 0.44,
   },
   greetingRow: {
     flexDirection: 'row',
@@ -347,15 +350,17 @@ const styles = StyleSheet.create({
   },
   greeting: {
     color: colors.text,
+    fontFamily: fonts.headline,
     fontSize: 30,
-    fontWeight: '700',
-    letterSpacing: -0.8,
+    lineHeight: 38,
+    letterSpacing: -0.45,
   },
   subgreeting: {
     color: colors.textSecondary,
-    fontSize: 15,
+    fontFamily: fonts.body,
+    fontSize: 16,
     marginTop: 6,
-    lineHeight: 22,
+    lineHeight: 26,
   },
   bell: {
     width: 40,
@@ -391,8 +396,9 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: colors.text,
+    fontFamily: fonts.label,
     fontSize: 16,
-    fontWeight: '600',
+    lineHeight: 24,
   },
   safeBadge: {
     backgroundColor: colors.mintDim,
@@ -401,9 +407,9 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
   },
   safeBadgeText: {
-    color: colors.mint,
+    color: colors.mintBright,
+    fontFamily: fonts.label,
     fontSize: 11,
-    fontWeight: '700',
   },
   metaRow: {
     gap: 8,
@@ -417,7 +423,9 @@ const styles = StyleSheet.create({
   },
   metaText: {
     color: colors.textSecondary,
+    fontFamily: fonts.body,
     fontSize: 13,
+    lineHeight: 20,
   },
   actionRow: {
     flexDirection: 'row',
@@ -430,14 +438,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    backgroundColor: colors.text,
+    backgroundColor: colors.mint,
     borderRadius: radii.pill,
-    paddingVertical: 12,
+    paddingVertical: 14,
   },
   primaryPillText: {
-    color: colors.bg,
+    color: colors.onPrimaryDark,
+    fontFamily: fonts.label,
     fontSize: 14,
-    fontWeight: '700',
   },
   iconButton: {
     width: 44,
@@ -501,16 +509,17 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     color: colors.textMuted,
+    fontFamily: fonts.label,
     fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 0.6,
+    letterSpacing: 0.44,
     textTransform: 'uppercase',
   },
   statValue: {
     color: colors.text,
+    fontFamily: fonts.display,
     fontSize: 26,
-    fontWeight: '700',
-    letterSpacing: -0.6,
+    letterSpacing: -0.4,
+    fontVariant: ['tabular-nums'],
   },
   statValueSm: {
     color: colors.text,

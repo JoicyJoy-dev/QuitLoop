@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 
 type ProgressRingProps = {
   size: number;
@@ -32,7 +32,8 @@ export function ProgressRing({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={colors.mintDim}
+          stroke={colors.mint}
+          strokeOpacity={0.12}
           strokeWidth={strokeWidth}
           fill="none"
           strokeLinecap="round"
@@ -41,7 +42,7 @@ export function ProgressRing({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={colors.mint}
+          stroke={colors.mintBright}
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={`${circumference} ${circumference}`}
@@ -73,20 +74,24 @@ const styles = StyleSheet.create({
   },
   caption: {
     color: colors.textMuted,
-    fontSize: 10,
-    letterSpacing: 1.2,
+    fontFamily: fonts.label,
+    fontSize: 11,
+    letterSpacing: 0.44,
     textTransform: 'uppercase',
     marginBottom: 4,
   },
   value: {
     color: colors.text,
+    fontFamily: fonts.display,
     fontSize: 36,
-    fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: -0.72,
+    fontVariant: ['tabular-nums'],
   },
   footer: {
     color: colors.textSecondary,
+    fontFamily: fonts.body,
     fontSize: 13,
+    lineHeight: 20,
     marginTop: 4,
   },
 });

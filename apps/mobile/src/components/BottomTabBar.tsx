@@ -1,9 +1,10 @@
-import { ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { BlurView } from 'expo-blur';
+import { ReactNode, useEffect, useRef } from 'react';
+import { Animated, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabId } from '../navigation/tabs';
-import { colors } from '../theme';
+import { colors, elevation, fonts, radii } from '../theme';
 import { IconHeart, IconHome, IconPerson, IconStats, IconWaves } from './icons';
 
 type BottomTabBarProps = {
@@ -13,44 +14,63 @@ type BottomTabBarProps = {
 
 export function BottomTabBar({ current, onChange }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const pulse = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, { toValue: 1, duration: 1500, useNativeDriver: true }),
+        Animated.timing(pulse, { toValue: 0, duration: 1500, useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
+  const fabScale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.06] });
 
   return (
-    <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}>
-      <TabButton
-        label="Home"
-        active={current === 'home'}
-        onPress={() => onChange('home')}
-        icon={<IconHome size={22} color={current === 'home' ? colors.text : colors.textMuted} filled={current === 'home'} />}
-      />
-      <TabButton
-        label="Track"
-        active={current === 'track'}
-        onPress={() => onChange('track')}
-        icon={<IconStats size={22} color={current === 'track' ? colors.text : colors.textMuted} />}
-      />
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Breathe"
-        onPress={() => onChange('breathe')}
-        style={styles.fabWrap}
-      >
-        <View style={[styles.fab, current === 'breathe' && styles.fabActive]}>
-          <IconWaves size={26} color={colors.white} />
-        </View>
-        <Text style={[styles.label, current === 'breathe' && styles.labelActive]}>Breathe</Text>
-      </Pressable>
-      <TabButton
-        label="Health"
-        active={current === 'health'}
-        onPress={() => onChange('health')}
-        icon={<IconHeart size={22} color={current === 'health' ? colors.text : colors.textMuted} filled={current === 'health'} />}
-      />
-      <TabButton
-        label="Profile"
-        active={current === 'profile'}
-        onPress={() => onChange('profile')}
-        icon={<IconPerson size={22} color={current === 'profile' ? colors.text : colors.textMuted} />}
-      />
+    <View style={[styles.dockWrap, { bottom: Math.max(insets.bottom, 10) + 6 }]}>
+      <View style={styles.dock}>
+        {Platform.OS === 'ios' ? (
+          <BlurView intensity={36} tint="dark" style={StyleSheet.absoluteFill} />
+        ) : null}
+        <TabButton
+          label="Journey"
+          active={current === 'home'}
+          onPress={() => onChange('home')}
+          icon={<IconHome size={22} color={current === 'home' ? colors.mintBright : colors.textMuted} filled={current === 'home'} />}
+        />
+        <TabButton
+          label="Toolkit"
+          active={current === 'track'}
+          onPress={() => onChange('track')}
+          icon={<IconStats size={22} color={current === 'track' ? colors.mintBright : colors.textMuted} />}
+        />
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="SOS craving intervention"
+          onPress={() => onChange('breathe')}
+          style={styles.fabWrap}
+        >
+          <Animated.View style={[styles.fab, { transform: [{ scale: fabScale }] }, current === 'breathe' && styles.fabActive]}>
+            <IconWaves size={26} color={colors.white} />
+          </Animated.View>
+          <Text style={[styles.label, current === 'breathe' && styles.labelActive]}>SOS</Text>
+        </Pressable>
+        <TabButton
+          label="Health"
+          active={current === 'health'}
+          onPress={() => onChange('health')}
+          icon={<IconHeart size={22} color={current === 'health' ? colors.mintBright : colors.textMuted} filled={current === 'health'} />}
+        />
+        <TabButton
+          label="Community"
+          active={current === 'profile'}
+          onPress={() => onChange('profile')}
+          icon={<IconPerson size={22} color={current === 'profile' ? colors.mintBright : colors.textMuted} />}
+        />
+      </View>
     </View>
   );
 }
@@ -75,30 +95,34 @@ function TabButton({
 }
 
 const styles = StyleSheet.create({
-  wrap: {
+  dockWrap: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    left: 16,
+    right: 16,
+  },
+  dock: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-around',
-    backgroundColor: colors.bg,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
+    backgroundColor: colors.surfaceFrost,
+    borderRadius: radii.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    overflow: 'hidden',
     paddingTop: 10,
-    paddingHorizontal: 8,
+    paddingBottom: 10,
+    paddingHorizontal: 6,
   },
   tab: {
     flex: 1,
     alignItems: 'center',
     gap: 4,
-    paddingBottom: 4,
+    paddingBottom: 2,
   },
   fabWrap: {
     alignItems: 'center',
-    marginTop: -28,
-    width: 76,
+    marginTop: -26,
+    width: 72,
   },
   fab: {
     width: 58,
@@ -108,11 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 4,
-    shadowColor: colors.coral,
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
+    ...elevation.coralGlow,
   },
   fabActive: {
     transform: [{ scale: 1.04 }],
@@ -120,7 +140,9 @@ const styles = StyleSheet.create({
   label: {
     color: colors.textMuted,
     fontSize: 11,
-    fontWeight: '600',
+    lineHeight: 14,
+    letterSpacing: 0.44,
+    fontFamily: fonts.label,
   },
   labelActive: {
     color: colors.text,

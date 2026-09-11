@@ -1,7 +1,8 @@
+import { BlurView } from 'expo-blur';
 import { ReactNode } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors, radii, space } from '../theme';
+import { colors, elevation, radii, space } from '../theme';
 
 type CardProps = {
   children: ReactNode;
@@ -9,15 +10,22 @@ type CardProps = {
 };
 
 export function Card({ children, style }: CardProps) {
-  return <View style={[styles.card, style]}>{children}</View>;
+  return (
+    <View style={[styles.card, style]}>
+      {Platform.OS === 'ios' ? (
+        <BlurView intensity={28} tint="dark" style={StyleSheet.absoluteFill} />
+      ) : null}
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderWidth: 1,
-    borderRadius: radii.lg,
+    backgroundColor: colors.surfaceFrost,
+    borderRadius: radii.md,
+    overflow: 'hidden',
     padding: space.lg,
+    ...elevation.card,
   },
 });

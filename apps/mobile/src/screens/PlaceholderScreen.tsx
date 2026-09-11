@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { colors, space } from '../theme';
+import { colors, space, type } from '../theme';
 
 type PlaceholderScreenProps = {
   title: string;
@@ -26,14 +26,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.lg,
   },
   title: {
-    color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
+    ...type.headline,
   },
   body: {
-    color: colors.textSecondary,
-    fontSize: 16,
+    ...type.body,
     marginTop: 10,
-    lineHeight: 22,
   },
 });

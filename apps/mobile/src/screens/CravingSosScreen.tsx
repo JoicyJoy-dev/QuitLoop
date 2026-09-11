@@ -22,7 +22,7 @@ import {
 import { cravingSosMock } from '../data/cravingSosMock';
 import { dashboardLocale } from '../data/dashboardMock';
 import { formatClock, formatMoney } from '../format';
-import { colors, radii, space } from '../theme';
+import { colors, fonts, radii, space } from '../theme';
 
 type CravingSosScreenProps = {
   onComplete: () => void;
@@ -237,7 +237,7 @@ export function CravingSosScreen({ onComplete }: CravingSosScreenProps) {
         onPress={beatCraving}
         style={styles.beatButton}
       >
-        <IconCheck size={16} color={colors.bg} />
+        <IconCheck size={16} color={colors.onPrimaryDark} />
         <Text style={styles.beatText}>
           I Beat This Craving (+{cravingSosMock.xpReward} Clean XP)
         </Text>
@@ -288,7 +288,8 @@ function BreathRing({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={colors.mintDim}
+          stroke={colors.mint}
+          strokeOpacity={0.12}
           strokeWidth={strokeWidth}
           fill="none"
         />
@@ -296,7 +297,7 @@ function BreathRing({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={colors.mint}
+          stroke={colors.mintBright}
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={`${circumference} ${circumference}`}
@@ -369,15 +370,16 @@ const styles = StyleSheet.create({
   },
   headline: {
     color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
-    letterSpacing: -0.7,
-    lineHeight: 34,
+    fontFamily: fonts.headline,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: -0.45,
   },
   body: {
     color: colors.textSecondary,
-    fontSize: 15,
-    lineHeight: 22,
+    fontFamily: fonts.body,
+    fontSize: 16,
+    lineHeight: 26,
   },
   ringWrap: {
     alignSelf: 'center',
@@ -402,10 +404,11 @@ const styles = StyleSheet.create({
   },
   ringValue: {
     color: colors.text,
+    fontFamily: fonts.display,
     fontSize: 56,
-    fontWeight: '700',
-    letterSpacing: -2,
+    letterSpacing: -1.1,
     marginTop: 4,
+    fontVariant: ['tabular-nums'],
   },
   waveControls: {
     flexDirection: 'row',
@@ -556,14 +559,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: colors.text,
+    backgroundColor: colors.mint,
     borderRadius: radii.pill,
-    paddingVertical: 15,
+    paddingVertical: 16,
   },
   beatText: {
-    color: colors.bg,
-    fontSize: 15,
-    fontWeight: '700',
+    color: colors.onPrimaryDark,
+    fontFamily: fonts.label,
+    fontSize: 14,
   },
   beatHint: {
     color: colors.textMuted,

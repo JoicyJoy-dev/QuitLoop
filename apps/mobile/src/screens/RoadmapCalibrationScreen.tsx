@@ -21,7 +21,7 @@ import {
 import { dashboardLocale } from '../data/dashboardMock';
 import { roadmapCalibrationMock } from '../data/roadmapCalibrationMock';
 import { formatMoney } from '../format';
-import { colors, radii, space } from '../theme';
+import { colors, fonts, radii, space } from '../theme';
 
 type RoadmapCalibrationScreenProps = {
   onContinue: () => void;
@@ -208,7 +208,7 @@ export function RoadmapCalibrationScreen({ onContinue }: RoadmapCalibrationScree
           style={styles.continueButton}
         >
           <Text style={styles.continueText}>Continue to My Plan</Text>
-          <IconArrowRight size={16} color={colors.bg} />
+          <IconArrowRight size={16} color={colors.onPrimaryDark} />
         </Pressable>
         <Text style={styles.footer}>{roadmapCalibrationMock.footer}</Text>
       </ScrollView>
@@ -283,15 +283,16 @@ const styles = StyleSheet.create({
   },
   question: {
     color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
-    letterSpacing: -0.7,
-    lineHeight: 34,
+    fontFamily: fonts.headline,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: -0.45,
   },
   intro: {
     color: colors.textSecondary,
-    fontSize: 15,
-    lineHeight: 22,
+    fontFamily: fonts.body,
+    fontSize: 16,
+    lineHeight: 26,
   },
   triggerCard: {
     paddingVertical: 4,
@@ -517,9 +518,10 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   continueText: {
-    color: colors.bg,
-    fontSize: 16,
-    fontWeight: '700',
+    color: colors.onPrimaryDark,
+    fontFamily: fonts.label,
+    fontSize: 14,
+    lineHeight: 20,
   },
   footer: {
     color: colors.textMuted,

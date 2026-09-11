@@ -1,3 +1,13 @@
+import {
+  Outfit_500Medium,
+  Outfit_600SemiBold,
+  useFonts as useOutfit,
+} from '@expo-google-fonts/outfit';
+import {
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_600SemiBold,
+  useFonts as useJakarta,
+} from '@expo-google-fonts/plus-jakarta-sans';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -16,6 +26,18 @@ import { colors } from './src/theme';
 export default function App() {
   const [tab, setTab] = useState<TabId>('home');
   const [calibrated, setCalibrated] = useState(false);
+  const [outfitLoaded] = useOutfit({
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+  });
+  const [jakartaLoaded] = useJakarta({
+    PlusJakartaSans_400Regular,
+    PlusJakartaSans_600SemiBold,
+  });
+
+  if (!outfitLoaded || !jakartaLoaded) {
+    return <View style={styles.shell} />;
+  }
 
   return (
     <SafeAreaProvider>
