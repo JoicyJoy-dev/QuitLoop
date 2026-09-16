@@ -1,4 +1,4 @@
-# QuitLoop
+# QuitLoop Mobile App
 
 QuitLoop is a behavioural-change platform that helps adults reduce or quit vaping. The first market is the United Kingdom; the architecture is built for additional countries, currencies, languages, time zones, units and regional configuration without restructuring the core application.
 
