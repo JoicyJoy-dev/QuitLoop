@@ -10,9 +10,10 @@ QuitLoop is a **modular monolith**: one deployable API, one PostgreSQL database,
 │  React Native   │──────▶│  Auth Users UsageTracking        │
 │  TypeScript     │       │  QuitPlans Cravings Spending     │
 └─────────────────┘       │  Progress Health Rewards         │
-                          │              │                   │
-                          └──────────────┼───────────────────┘
-                                         │ Dapper + Npgsql
+┌─────────────────┐       │              │                   │
+│  apps/web       │──────▶│              │                   │
+│  Next.js        │       └──────────────┼───────────────────┘
+└─────────────────┘                      │ Dapper + Npgsql
                                          ▼
                                   PostgreSQL
 ```

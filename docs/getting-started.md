@@ -68,7 +68,17 @@ Development URLs are in `src/QuitLoop.Api/Properties/launchSettings.json` (`http
 
 `appsettings.Development.json` points at `localhost:5432` with the same credentials as `.env.example`.
 
-## 4. Mobile app
+## 4. Website
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
+
+## 5. Mobile app
 
 ```bash
 cd apps/mobile
@@ -80,7 +90,7 @@ The app is a shell only. Point it at the API later with `EXPO_PUBLIC_API_URL` (s
 
 On a physical device, `localhost` is the phone, not your PC. Use your machine's LAN IP or a tunnel.
 
-## 5. Reset the database
+## 6. Reset the database
 
 ```bash
 docker compose down -v

@@ -2,7 +2,7 @@
 
 QuitLoop is a behavioural-change platform that helps adults reduce or quit vaping. The first market is the United Kingdom; the architecture is built for additional countries, currencies, languages, time zones, units and regional configuration without restructuring the core application.
 
-This repository is a **runnable foundation**, not the full product. It establishes the monorepo, modular API, PostgreSQL database, Docker environment and mobile app shell.
+This repository is a **runnable foundation**, not the full product. It establishes the monorepo, modular API, PostgreSQL database, Docker environment, public website and mobile app shell.
 
 ## Repository layout
 
@@ -10,6 +10,7 @@ This repository is a **runnable foundation**, not the full product. It establish
 | --- | --- |
 | `apps/api` | .NET 10 modular monolith (Minimal APIs, Dapper, Npgsql, PostgreSQL) |
 | `apps/mobile` | React Native + TypeScript client (Expo) |
+| `apps/web` | Next.js public website (`quitloop.org`) |
 | `infrastructure` | Docker Compose and container configuration |
 | `docs` | Architecture and getting-started documentation |
 
@@ -17,7 +18,7 @@ This repository is a **runnable foundation**, not the full product. It establish
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine + Compose)
-- Node.js 22.13+ (mobile app only)
+- Node.js 22.13+ (mobile and web)
 
 Visual Studio is not required. The API is developed with Cursor/VS Code and the `dotnet` CLI, and it runs on Linux in containers.
 
@@ -51,6 +52,16 @@ dotnet run --project src/QuitLoop.Api
 ```
 
 The Development profile listens on http://localhost:5080.
+
+## Website
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
 
 ## Mobile
 

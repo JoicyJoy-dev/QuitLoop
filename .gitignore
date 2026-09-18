@@ -27,8 +27,9 @@ TestResults/
 *.coverage
 *.coveragexml
 
-# Node / Expo / React Native
+# Node / Expo / React Native / Next.js
 node_modules/
+.next/
 .expo/
 .expo-shared/
 dist/

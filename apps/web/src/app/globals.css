@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09151b;
+  --foreground: #d8e4ed;
+}
+
+@theme inline {
+  --color-background: #09151b;
+  --color-foreground: #d8e4ed;
+  --color-surface: #09151b;
+  --color-surface-dim: #09151b;
+  --color-surface-bright: #2f3b41;
+  --color-surface-container-lowest: #041015;
+  --color-surface-container-low: #111d23;
+  --color-surface-container: #152127;
+  --color-surface-container-high: #202c32;
+  --color-surface-container-highest: #2b363d;
+  --color-on-surface: #d8e4ed;
+  --color-on-surface-variant: #bbcac6;
+  --color-outline: #869490;
+  --color-outline-variant: #3c4947;
+  --color-primary: #54dbca;
+  --color-primary-container: #19b5a5;
+  --color-primary-fixed: #74f8e6;
+  --color-on-primary: #003732;
+  --color-secondary: #86d7a9;
+  --color-secondary-container: #01643f;
+  --color-on-secondary: #003822;
+  --color-on-secondary-container: #8ddeb0;
+  --color-tertiary: #ffb4a5;
+  --color-tertiary-container: #f2826c;
+  --color-on-tertiary: #601407;
+  --color-on-tertiary-container: #6b1c0e;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+  --color-dawn: #7bb8dc;
+  --font-display: var(--font-outfit);
+  --font-sans: var(--font-jakarta);
+  --radius-card: 1.5rem;
+  --radius-panel: 2rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, #54dbca 25%, transparent);
+  color: #54dbca;
+}
+
+.material-pulse {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 18px 0 rgba(240, 128, 106, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 32px 4px rgba(240, 128, 106, 0.4);
+  }
+}
+
+@keyframes breathe-ring {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.breathe-ring {
+  animation: breathe-ring 4s ease-in-out infinite;
+}
