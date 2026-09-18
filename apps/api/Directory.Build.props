@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1510</WarningsNotAsErrors>
     <InvariantGlobalization>false</InvariantGlobalization>
     <Version>0.1.0</Version>
   </PropertyGroup>

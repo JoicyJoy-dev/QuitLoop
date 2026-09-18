@@ -26,11 +26,7 @@ builder.Services
     .Validate(static options => options.IsValid(), "Regional defaults must use ISO country/currency codes, a BCP 47 language, an IANA time zone, and a supported unit system.")
     .ValidateOnStart();
 
-var connectionString = builder.Configuration.GetConnectionString("Database");
-if (string.IsNullOrWhiteSpace(connectionString))
-{
-    throw new InvalidOperationException("Connection string 'Database' is not configured.");
-}
+var connectionString = ResolveDatabaseConnectionString(builder.Configuration);
 
 builder.Services.AddSingleton(NpgsqlDataSource.Create(connectionString));
 builder.Services.AddSingleton<DatabaseMigrator>();
@@ -92,3 +88,25 @@ app.MapHealthModule();
 app.MapRewardsModule();
 
 app.Run();
+
+static string ResolveDatabaseConnectionString(IConfiguration config)
+{
+    var host = config["POSTGRES_HOST"];
+    var password = config["POSTGRES_PASSWORD"];
+    if (!string.IsNullOrWhiteSpace(host) && !string.IsNullOrWhiteSpace(password))
+    {
+        var port = string.IsNullOrWhiteSpace(config["POSTGRES_PORT"]) ? "5432" : config["POSTGRES_PORT"]!;
+        var database = config["POSTGRES_DB"] ?? "quitloop";
+        var username = config["POSTGRES_USER"] ?? "quitloop";
+        return $"Host={host};Port={port};Database={database};Username={username};Password={password}";
+    }
+
+    var configured = config.GetConnectionString("Database");
+    if (!string.IsNullOrWhiteSpace(configured))
+    {
+        return configured;
+    }
+
+    throw new InvalidOperationException(
+        "Database connection is not configured. Set POSTGRES_HOST and POSTGRES_PASSWORD, or ConnectionStrings:Database.");
+}

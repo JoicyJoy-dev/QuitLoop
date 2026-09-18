@@ -16,7 +16,13 @@ The `.env` file is for local Docker. It is not used as production secrets storag
 docker compose up --build
 ```
 
-Compose starts Postgres, waits until it accepts connections, then starts the API. The API applies SQL migrations on startup.
+Compose starts Postgres (Docker network only) and the API. The API applies SQL migrations on startup.
+
+To use `dotnet watch` against Docker Postgres, also publish 5432 on loopback:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local.yml up postgres
+```
 
 Verify:
 
@@ -53,7 +59,7 @@ curl http://localhost:8080/openapi/v1.json
 Useful for Cursor/`dotnet watch` while Postgres stays in Docker:
 
 ```bash
-docker compose up postgres
+docker compose -f docker-compose.yml -f docker-compose.local.yml up postgres
 cd apps/api
 dotnet watch --project src/QuitLoop.Api
 ```
@@ -83,13 +89,25 @@ docker compose up --build
 
 `-v` deletes the Postgres volume. Migrations then run on an empty database.
 
+## Production (EC2)
+
+Postgres is not published on the host (avoids clashing with another Postgres). Nginx should proxy `api.quitloop.org` to `http://127.0.0.1:8080`.
+
+```bash
+cp .env.example .env
+# set POSTGRES_PASSWORD (no $ characters) and ASPNETCORE_ENVIRONMENT=Production
+chmod 600 .env
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+curl http://127.0.0.1:8080/health
+```
+
 ## Ports
 
 | Service | Port |
 | --- | --- |
-| API in Docker | 8080 |
+| API in Docker | 8080 (prod: `127.0.0.1:8080`) |
 | API on host (`dotnet run`) | 5080 |
-| PostgreSQL | 5432 |
+| PostgreSQL | Docker network only (optional local: `127.0.0.1:5432`) |
 
 ## SDK pin
 

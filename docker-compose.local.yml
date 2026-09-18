@@ -1,0 +1,9 @@
+# Optional: publish Postgres on loopback for host `dotnet watch`.
+# Not used on the server.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up postgres
+
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:5432:5432"

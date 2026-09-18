@@ -4,12 +4,13 @@ services:
   postgres:
     image: postgres:18
     container_name: quitloop-postgres
+    env_file:
+      - path: ../.env
+        required: false
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-quitloop}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quitloop}
       POSTGRES_DB: ${POSTGRES_DB:-quitloop}
-    ports:
-      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - quitloop-postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -25,10 +26,17 @@ services:
       context: ../apps/api
       dockerfile: Dockerfile
     container_name: quitloop-api
+    env_file:
+      - path: ../.env
+        required: false
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__Database: ${DATABASE_CONNECTION_STRING:-Host=postgres;Port=5432;Database=quitloop;Username=quitloop;Password=quitloop}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: ${POSTGRES_USER:-quitloop}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quitloop}
+      POSTGRES_DB: ${POSTGRES_DB:-quitloop}
       Regional__DefaultCountryCode: ${REGIONAL_DEFAULT_COUNTRY_CODE:-GB}
       Regional__DefaultCurrencyCode: ${REGIONAL_DEFAULT_CURRENCY_CODE:-GBP}
       Regional__DefaultLanguageCode: ${REGIONAL_DEFAULT_LANGUAGE_CODE:-en-GB}
