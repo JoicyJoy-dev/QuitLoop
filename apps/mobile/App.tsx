@@ -1,13 +1,4 @@
-import {
-  Outfit_500Medium,
-  Outfit_600SemiBold,
-  useFonts as useOutfit,
-} from '@expo-google-fonts/outfit';
-import {
-  PlusJakartaSans_400Regular,
-  PlusJakartaSans_600SemiBold,
-  useFonts as useJakarta,
-} from '@expo-google-fonts/plus-jakarta-sans';
+import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -26,16 +17,14 @@ import { colors } from './src/theme';
 export default function App() {
   const [tab, setTab] = useState<TabId>('home');
   const [calibrated, setCalibrated] = useState(false);
-  const [outfitLoaded] = useOutfit({
-    Outfit_500Medium,
-    Outfit_600SemiBold,
-  });
-  const [jakartaLoaded] = useJakarta({
-    PlusJakartaSans_400Regular,
-    PlusJakartaSans_600SemiBold,
+  const [fontsLoaded] = useFonts({
+    Outfit_500Medium: require('./assets/fonts/Outfit-Medium.ttf'),
+    Outfit_600SemiBold: require('./assets/fonts/Outfit-SemiBold.ttf'),
+    PlusJakartaSans_400Regular: require('./assets/fonts/PlusJakartaSans-Regular.ttf'),
+    PlusJakartaSans_600SemiBold: require('./assets/fonts/PlusJakartaSans-SemiBold.ttf'),
   });
 
-  if (!outfitLoaded || !jakartaLoaded) {
+  if (!fontsLoaded) {
     return <View style={styles.shell} />;
   }
 

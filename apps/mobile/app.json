@@ -14,10 +14,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.quitloop.app"
+      "bundleIdentifier": "com.gixza.quitloop"
     },
     "android": {
-      "package": "com.quitloop.app",
+      "package": "com.gixza.quitloop",
       "predictiveBackGestureEnabled": false,
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/quitloop-emblem.png",
