@@ -20,7 +20,7 @@ if [ ! -d "$WEB_DIR/out" ]; then
   exit 1
 fi
 
-mkdir -p "$DEST"
-rsync -a --delete "$WEB_DIR/out/" "$DEST/"
+sudo mkdir -p "$DEST"
+sudo rsync -a --delete "$WEB_DIR/out/" "$DEST/"
 
 echo "Deployed $WEB_DIR/out -> $DEST"
