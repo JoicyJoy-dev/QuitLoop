@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics';
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Avatar } from '../components/Avatar';
@@ -31,10 +31,18 @@ import { AmbientGlow } from '../components/AmbientGlow';
 import { colors, fonts, radii, space } from '../theme';
 
 type DashboardScreenProps = {
+  firstName?: string;
+  initials?: string;
   onStartReset: () => void;
+  onSignOut?: () => void;
 };
 
-export function DashboardScreen({ onStartReset }: DashboardScreenProps) {
+export function DashboardScreen({
+  firstName = dashboardMock.user.firstName,
+  initials = 'A',
+  onStartReset,
+  onSignOut,
+}: DashboardScreenProps) {
   const insets = useSafeAreaInsets();
   const [logged, setLogged] = useState(dashboardMock.allowance.logged);
   const { limit } = dashboardMock.allowance;
@@ -43,7 +51,7 @@ export function DashboardScreen({ onStartReset }: DashboardScreenProps) {
     () => Math.round(((limit - logged) / limit) * 100),
     [logged, limit],
   );
-  const greeting = `Good morning, ${dashboardMock.user.firstName}.`;
+  const greeting = `Good morning, ${firstName}.`;
   const saved = formatMoney(
     dashboardMock.savings.amountMinorUnits,
     dashboardLocale.currencyCode,
@@ -84,7 +92,21 @@ export function DashboardScreen({ onStartReset }: DashboardScreenProps) {
             </Text>
           </View>
         </View>
-        <Avatar initials="A" />
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Sign out"
+          onPress={() => {
+            if (!onSignOut) {
+              return;
+            }
+            Alert.alert('Sign out', 'End this session on this device?', [
+              { text: 'Stay', style: 'cancel' },
+              { text: 'Sign out', style: 'destructive', onPress: onSignOut },
+            ]);
+          }}
+        >
+          <Avatar initials={initials} />
+        </Pressable>
       </View>
 
       <View style={styles.modeRow}>

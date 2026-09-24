@@ -8,7 +8,7 @@ This repository is a **runnable foundation**, not the full product. It establish
 
 | Path | Purpose |
 | --- | --- |
-| `apps/api` | .NET 10 modular monolith (Minimal APIs, Dapper, Npgsql, PostgreSQL) |
+| `apps/api` | .NET 10 modular monolith (Minimal APIs, Dapper, Npgsql, PostgreSQL). Hosted at `https://api.quitloop.org` |
 | `apps/mobile` | React Native + TypeScript client (Expo) |
 | `apps/web` | Next.js public website (`quitloop.org`) |
 | `infrastructure` | Docker Compose and container configuration |
@@ -70,5 +70,7 @@ cd apps/mobile
 npm install
 npx expo start
 ```
+
+The mobile and web clients default to the hosted API at https://api.quitloop.org. Override with `EXPO_PUBLIC_API_URL` or `NEXT_PUBLIC_API_URL` to use a local API.
 
 See [docs/getting-started.md](docs/getting-started.md) for details and [docs/architecture.md](docs/architecture.md) for how the modular monolith is structured.

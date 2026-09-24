@@ -42,6 +42,7 @@ services:
       Regional__DefaultLanguageCode: ${REGIONAL_DEFAULT_LANGUAGE_CODE:-en-GB}
       Regional__DefaultTimeZone: ${REGIONAL_DEFAULT_TIME_ZONE:-Europe/London}
       Regional__DefaultUnitSystem: ${REGIONAL_DEFAULT_UNIT_SYSTEM:-metric}
+      Auth__PublicWebBaseUrl: ${AUTH_PUBLIC_WEB_BASE_URL:-https://quitloop.org}
     ports:
       - "${API_PORT:-8080}:8080"
     depends_on:

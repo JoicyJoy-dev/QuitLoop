@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { Activity, HeartPulse, Home, LogOut, Waves } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useSos } from "@/components/site/SosContext";
-
-export const SESSION_KEY = "quitloop-demo-session";
+import { apiRequest } from "@/lib/api";
+import { clearSession, readSession } from "@/lib/auth";
 
 const tabs = [
   { href: "/portal", label: "Journey", icon: Home },
@@ -23,8 +23,7 @@ export function PortalNav() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const session = window.localStorage.getItem(SESSION_KEY);
-    if (!session) {
+    if (!readSession()) {
       router.replace("/login");
       return;
     }
@@ -67,7 +66,11 @@ export function PortalNav() {
         <button
           type="button"
           onClick={() => {
-            window.localStorage.removeItem(SESSION_KEY);
+            const session = readSession();
+            if (session) {
+              void apiRequest("/auth/logout", { method: "POST", token: session.token }).catch(() => undefined);
+            }
+            clearSession();
             router.push("/");
           }}
           className="inline-flex items-center gap-2 rounded-full bg-surface-container-high px-4 py-2 text-sm font-semibold text-on-surface-variant"

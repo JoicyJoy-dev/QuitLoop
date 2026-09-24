@@ -7,8 +7,9 @@ import { AuthField, AuthPanel, authButtonClassName, authInputClassName } from "@
 import { ApiError, apiRequest } from "@/lib/api";
 import { AuthSession, writeSession } from "@/lib/auth";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const router = useRouter();
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,14 +20,18 @@ export default function LoginPage() {
     setError("");
     setPending(true);
     try {
-      const session = await apiRequest<AuthSession>("/auth/login", {
+      const session = await apiRequest<AuthSession>("/auth/signup", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          displayName: displayName.trim() || undefined,
+        }),
       });
       writeSession(session);
       router.push("/portal");
     } catch (caught) {
-      setError(caught instanceof ApiError ? caught.message : "Unable to sign in.");
+      setError(caught instanceof ApiError ? caught.message : "Unable to create your account.");
     } finally {
       setPending(false);
     }
@@ -34,11 +39,20 @@ export default function LoginPage() {
 
   return (
     <AuthPanel
-      kicker="Patient portal"
-      title="Continue your neuro-taper from any screen."
-      body="Sign in with the email you used for QuitLoop. Your session stays on this device and talks to the QuitLoop API — not a demo passcode."
+      kicker="Create account"
+      title="Start a UK neuro-taper that stays with you."
+      body="Your account stores locale defaults from the UK configuration. You can change country later when more markets open."
     >
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
+        <AuthField label="Name">
+          <input
+            type="text"
+            autoComplete="name"
+            value={displayName}
+            onChange={(event) => setDisplayName(event.target.value)}
+            className={authInputClassName}
+          />
+        </AuthField>
         <AuthField label="Email">
           <input
             required
@@ -53,7 +67,8 @@ export default function LoginPage() {
           <input
             required
             type="password"
-            autoComplete="current-password"
+            minLength={8}
+            autoComplete="new-password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             className={authInputClassName}
@@ -61,27 +76,13 @@ export default function LoginPage() {
         </AuthField>
         {error ? <p className="text-sm text-tertiary">{error}</p> : null}
         <button type="submit" disabled={pending} className={authButtonClassName}>
-          {pending ? "Signing in…" : "Enter sanctuary"}
+          {pending ? "Creating account…" : "Create account"}
         </button>
         <p className="text-center text-[13px] text-outline">
-          <Link href="/forgot-password" className="text-primary hover:underline">
-            Forgotten password?
+          Already have an account?{" "}
+          <Link href="/login" className="text-primary hover:underline">
+            Sign in
           </Link>
-          {" · "}
-          <Link href="/signup" className="text-primary hover:underline">
-            Create an account
-          </Link>
-        </p>
-        <p className="text-center text-[13px] text-outline">
-          By continuing you agree to the{" "}
-          <a href="/terms" className="text-primary hover:underline">
-            clinical terms
-          </a>{" "}
-          and{" "}
-          <a href="/privacy" className="text-primary hover:underline">
-            privacy protocol
-          </a>
-          .
         </p>
       </form>
     </AuthPanel>

@@ -1,2 +1,2 @@
 export const apiBaseUrl =
-  process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:5080';
+  process.env.EXPO_PUBLIC_API_URL ?? 'https://api.quitloop.org';

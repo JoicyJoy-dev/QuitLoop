@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/portal", "/portal/"],
+        disallow: ["/portal", "/portal/", "/reset-password", "/reset-password/"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

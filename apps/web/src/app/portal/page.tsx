@@ -1,22 +1,31 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PortalNav } from "@/components/portal/PortalNav";
 import { ProgressRing } from "@/components/site/ProgressRing";
 import { useSos } from "@/components/site/SosContext";
+import { firstNameFrom, readSession } from "@/lib/auth";
 
 export default function PortalPage() {
   const { setOpen } = useSos();
   const [logged, setLogged] = useState(42);
   const limit = 80;
   const remaining = useMemo(() => Math.round(((limit - logged) / limit) * 100), [logged]);
+  const [firstName, setFirstName] = useState("there");
+
+  useEffect(() => {
+    const session = readSession();
+    if (session) {
+      setFirstName(firstNameFrom(session.user));
+    }
+  }, []);
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8 lg:px-12">
       <PortalNav />
       <div className="mb-6">
         <p className="text-[11px] font-semibold tracking-widest text-secondary uppercase">Sanctuary mode</p>
-        <h1 className="font-display text-3xl font-semibold text-on-surface">Good morning, Alex.</h1>
+        <h1 className="font-display text-3xl font-semibold text-on-surface">Good morning, {firstName}.</h1>
         <p className="mt-1 text-sm text-on-surface-variant">Breathe easy today. Your mind is adapting.</p>
       </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">

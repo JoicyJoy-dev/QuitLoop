@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { CrisisBanner } from "@/components/site/CrisisBanner";
 import { AmbientGlow } from "@/components/site/AmbientGlow";
-import { helplines } from "@/lib/site";
+import { company, helplines } from "@/lib/site";
 
 type Step = 1 | 2 | 3 | "success";
 
@@ -270,8 +270,8 @@ export default function AccountDeletionPage() {
               </Notice>
               <div className="mt-2 flex items-center gap-3 rounded-2xl bg-surface-container-low p-3.5 text-[11px] text-outline">
                 Data Protection Officer:{" "}
-                <a className="text-primary hover:underline" href="mailto:dpo@quitloop.co.uk">
-                  dpo@quitloop.co.uk
+                <a className="text-primary hover:underline" href={`mailto:${company.dpoEmail}`}>
+                  {company.dpoEmail}
                 </a>
               </div>
             </div>

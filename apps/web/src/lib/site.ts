@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const siteUrl = "https://quitloop.co.uk";
+export const siteUrl = "https://quitloop.org";
 
 export const company = {
   name: "QuitLoop",
@@ -8,7 +8,7 @@ export const company = {
   number: "14298101",
   address: "100 Victoria Embankment, London, EC4Y 0DH",
   ico: "ZA892110",
-  dpoEmail: "dpo@quitloop.co.uk",
+  dpoEmail: "dpo@quitloop.org",
   dpoPhone: "+44 (0)20 7946 0912",
   dpoName: "Dr Simon Vance",
   year: 2026,
@@ -103,9 +103,23 @@ export const publicRoutes = [
     path: "/login",
     title: "Patient Portal Login",
     description:
-      "Sign in to the QuitLoop patient portal with your email or NHS Login ID to continue your neuro-taper.",
+      "Sign in to the QuitLoop patient portal with your email to continue your neuro-taper.",
     changeFrequency: "yearly" as const,
     priority: 0.4,
+  },
+  {
+    path: "/signup",
+    title: "Create a QuitLoop account",
+    description: "Create a QuitLoop account to start a UK neuro-taper and sync progress across web and mobile.",
+    changeFrequency: "yearly" as const,
+    priority: 0.4,
+  },
+  {
+    path: "/forgot-password",
+    title: "Forgot password",
+    description: "Reset your QuitLoop password if you cannot sign in to the patient portal.",
+    changeFrequency: "yearly" as const,
+    priority: 0.2,
   },
   {
     path: "/privacy",

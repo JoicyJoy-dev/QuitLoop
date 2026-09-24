@@ -7,4 +7,4 @@ npm install
 npx expo start
 ```
 
-API base URL: `EXPO_PUBLIC_API_URL` (see `.env.example`).
+API base URL defaults to https://api.quitloop.org. Override with `EXPO_PUBLIC_API_URL` (see `.env.example`).

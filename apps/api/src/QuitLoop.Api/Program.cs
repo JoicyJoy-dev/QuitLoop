@@ -37,6 +37,16 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddOpenApi();
 
+var allowedOrigins = builder.Configuration.GetSection("Auth:AllowedOrigins").Get<string[]>()
+    ?? ["http://localhost:3000", "http://127.0.0.1:3000", "https://quitloop.org", "https://www.quitloop.org"];
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 builder.Services
     .AddAuthModule()
     .AddUsersModule()
@@ -51,6 +61,8 @@ builder.Services
 var app = builder.Build();
 
 await app.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync();
+
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {

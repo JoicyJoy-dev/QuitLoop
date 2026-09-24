@@ -36,6 +36,9 @@ dist/
 .tmp-export/
 web-build/
 *.jks
+*.keystore
+credentials.json
+credentials/
 *.p8
 *.p12
 *.key

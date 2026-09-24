@@ -18,6 +18,7 @@
     },
     "android": {
       "package": "com.gixza.quitloop",
+      "versionCode": 1,
       "predictiveBackGestureEnabled": false,
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/quitloop-emblem.png",
@@ -25,7 +26,14 @@
       }
     },
     "plugins": [
-      "expo-font"
-    ]
+      "expo-font",
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "660a3288-b829-49cc-85b5-338b1fd4f426"
+      }
+    },
+    "owner": "joicy"
   }
 }

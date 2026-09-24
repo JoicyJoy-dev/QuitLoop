@@ -86,7 +86,7 @@ npm install
 npx expo start
 ```
 
-The app is a shell only. Point it at the API later with `EXPO_PUBLIC_API_URL` (see `apps/mobile/.env.example`).
+The app defaults to the hosted API at https://api.quitloop.org. Override with `EXPO_PUBLIC_API_URL` (see `apps/mobile/.env.example`) to use a local API.
 
 On a physical device, `localhost` is the phone, not your PC. Use your machine's LAN IP or a tunnel.
 
@@ -101,7 +101,7 @@ docker compose up --build
 
 ## Production (EC2)
 
-Postgres is not published on the host (avoids clashing with another Postgres). Nginx should proxy `api.quitloop.org` to `http://127.0.0.1:8080`.
+Postgres is not published on the host (avoids clashing with another Postgres). Nginx should proxy [https://api.quitloop.org](https://api.quitloop.org) to `http://127.0.0.1:8080`.
 
 ```bash
 cp .env.example .env
