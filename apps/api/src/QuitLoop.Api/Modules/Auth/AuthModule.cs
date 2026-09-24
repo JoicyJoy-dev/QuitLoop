@@ -257,7 +257,7 @@ public static class AuthModule
                 SET revoked_at = now()
                 WHERE user_id = @userId AND revoked_at IS NULL;
                 """,
-                new { userId, passwordHash = PasswordCrypto.Hash(request.Password), tokenHash },
+                new { userId, passwordHash = PasswordCrypto.Hash(password), tokenHash },
                 transaction,
                 cancellationToken: cancellationToken));
 
